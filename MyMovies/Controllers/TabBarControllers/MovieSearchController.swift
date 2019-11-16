@@ -9,32 +9,59 @@
 import UIKit
 import SDWebImage
 
-class MovieSearchController: UICollectionViewController, UISearchBarDelegate {
-
-    fileprivate let cellId = "cellId"
+class MovieSearchController: BaseMovieController, UISearchBarDelegate {
+    
+    let cellId = "cellId"
+    var result: Result?
     
     fileprivate let searchController = UISearchController(searchResultsController: nil)
-    
-    fileprivate var result: Result?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView.backgroundColor = .white
+        collectionView.contentInset = .init(top: 18, left: 0, bottom: 18, right: 0)
         collectionView.register(MovieCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.keyboardDismissMode = .interactive
         
         setupSearchBar()
-        
-//        fetchITunesApps()
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+           return result?.movies.count ?? 0
+       }
+       
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MovieCell
+           cell.movie = result?.movies[indexPath.item]
+           return cell
+       }
+       
+       override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+           guard let result = result else { return }
+           let movie = result.movies[indexPath.item]
+           let movieController = MovieDetailController(for: movie)
+           if let tabBarControlller = tabBarController as? MainTabBarController {
+               tabBarControlller.setTabBarVisible(visible: false, animated: true)
+           }
+           navigationController?.pushViewController(movieController, animated: true)
+       }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let result = result else { return }
+        if (indexPath.row == result.movies.count - 1 ) {
+            //fetchMoreMovies
+         }
+    }
+    
     
     fileprivate func setupSearchBar() {
         definesPresentationContext = true
         navigationItem.searchController = self.searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-        searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
+        searchController.dimsBackgroundDuringPresentation = false
     }
     
     var timer: Timer?
@@ -66,25 +93,7 @@ class MovieSearchController: UICollectionViewController, UISearchBarDelegate {
         })
     }
     
-    
-    
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return result?.movies.count ?? 0
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MovieCell
-        cell.movie = result?.movies[indexPath.item]
-        return cell
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
-    
 }
-
 
 //MARK:- UICollectionViewDelegateFlowLayout
 

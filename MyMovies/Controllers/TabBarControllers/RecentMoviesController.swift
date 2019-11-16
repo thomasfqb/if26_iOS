@@ -8,8 +8,8 @@
 
 import UIKit
 
-class RecentMoviesController: UICollectionViewController {
-    
+class RecentMoviesController: BaseMovieController {
+        
     let cellId = "cellId"
     
     var result: Result?
@@ -20,16 +20,6 @@ class RecentMoviesController: UICollectionViewController {
         fetchUpComingMovies()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if let tabBarControlller = tabBarController as? MainTabBarController {
-            tabBarControlller.setTabBarVisible(visible: true, animated: true)
-        }
-        
-        // Reset navBar
-        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-        navigationController?.navigationBar.shadowImage = nil
-    }
-        
     //MARK:- Collection View
     
     fileprivate func setupCollectionView() {
@@ -37,26 +27,27 @@ class RecentMoviesController: UICollectionViewController {
         collectionView.contentInset = .init(top: 18, left: 0, bottom: 18, right: 0)
         collectionView.register(MovieCell.self, forCellWithReuseIdentifier: cellId)
     }
+        
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return result?.movies.count ?? 0
-    }
-    
+           return result?.movies.count ?? 0
+       }
+       
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MovieCell
-        cell.movie = result?.movies[indexPath.item]
-        return cell
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let result = result else { return }
-        let movie = result.movies[indexPath.item]
-        let movieController = MovieDetailController(for: movie)
-        if let tabBarControlller = tabBarController as? MainTabBarController {
-            tabBarControlller.setTabBarVisible(visible: false, animated: true)
-        }
-        navigationController?.pushViewController(movieController, animated: true)
-    }
+           cell.movie = result?.movies[indexPath.item]
+           return cell
+       }
+       
+       override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+           guard let result = result else { return }
+           let movie = result.movies[indexPath.item]
+           let movieController = MovieDetailController(for: movie)
+           if let tabBarControlller = tabBarController as? MainTabBarController {
+               tabBarControlller.setTabBarVisible(visible: false, animated: true)
+           }
+           navigationController?.pushViewController(movieController, animated: true)
+       }
     
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

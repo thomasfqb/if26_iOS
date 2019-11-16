@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+struct Movie: Decodable {
+    
+    let id: Int
+    let originalTitle: String
+    let posterPath: String?
+    let voteAverage: Float
+    let overview: String
+    let releaseDate: String
+    var videos: [Video]?
+    
+}

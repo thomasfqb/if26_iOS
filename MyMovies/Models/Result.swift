@@ -7,3 +7,17 @@
 //
 
 import Foundation
+
+struct Result: Decodable {
+    
+    var movies: [Movie]
+    var page: Int
+    let totalResults: Int
+    let totalPages: Int
+    
+    private enum CodingKeys: String, CodingKey {
+        case movies = "results"
+        case page, totalResults, totalPages
+    }
+    
+}

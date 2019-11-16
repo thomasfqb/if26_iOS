@@ -8,16 +8,12 @@
 
 import UIKit
 
-class FavoritesMoviesController: UICollectionViewController {
+class FavoritesMoviesController: BaseMovieController {
     
     let cellId = "cellId"
     let spacing: CGFloat = 12
     
     var result: Result?
-    
-    init() {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,28 +21,18 @@ class FavoritesMoviesController: UICollectionViewController {
         fetchUpComingMovies()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if let tabBarControlller = tabBarController as? MainTabBarController {
-            tabBarControlller.setTabBarVisible(visible: true, animated: true)
-        }
-        
-        // Reset navBar
-        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
-        navigationController?.navigationBar.shadowImage = nil
-    }
-    
     //MARK:- Collection View
     
     fileprivate func setupCollectionView() {
-        collectionView.backgroundColor = .white
-        collectionView.contentInset = .init(top: spacing, left: spacing, bottom: spacing, right: spacing)
-        collectionView.register(FavoriteMovieCell.self, forCellWithReuseIdentifier: cellId)
-    }
+           collectionView.backgroundColor = .white
+           collectionView.contentInset = .init(top: spacing, left: spacing, bottom: spacing, right: spacing)
+           collectionView.register(FavoriteMovieCell.self, forCellWithReuseIdentifier: cellId)
+       }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return result?.movies.count ?? 0
     }
-    
+        
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FavoriteMovieCell
         cell.movie = result?.movies[indexPath.row]
@@ -54,22 +40,15 @@ class FavoritesMoviesController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        guard let movie = result?.movies[indexPath.row] else { return }
-        let movieDetailController = MovieDetailController(for: movie)
-        navigationController?.pushViewController(movieDetailController, animated: true)
-        
-        if let tabBarController = tabBarController as? MainTabBarController {
-            tabBarController.setTabBarVisible(visible: false, animated: true)
+        guard let result = result else { return }
+        let movie = result.movies[indexPath.item]
+        let movieController = MovieDetailController(for: movie)
+        if let tabBarControlller = tabBarController as? MainTabBarController {
+            tabBarControlller.setTabBarVisible(visible: false, animated: true)
         }
-        
+        navigationController?.pushViewController(movieController, animated: true)
     }
-    
-    required init?(coder: NSCoder) {
-           fatalError("init(coder:) has not been implemented")
-       }
-       
-    
+        
     fileprivate func fetchUpComingMovies() {
         Service.shared.fetchUpcomingMovies { (result, error) in
             if let error = error {

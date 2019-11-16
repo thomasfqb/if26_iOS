@@ -28,12 +28,23 @@ class MovieDetailController: UICollectionViewController {
         setupNavigationBar()
     }
     
+    //MARK:- Collection View
+    
     fileprivate func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = false
         //Make the navigation bar transparent
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
+        
+        navigationController?.navigationBar.tintColor = .white
+        
+        let favoriteButton = UIBarButtonItem(image: #imageLiteral(resourceName: "like"), style: .plain, target: self, action: #selector(handleUpdateLike))
+        navigationItem.rightBarButtonItem = favoriteButton
+    }
+    
+    @objc fileprivate func handleUpdateLike() {
+        
     }
     
     //MARK:- Collection View
@@ -53,7 +64,8 @@ class MovieDetailController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: overviewCellId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: overviewCellId, for: indexPath) as! OverviewCell
+        cell.movie = movie
         return cell
     }
         
@@ -72,7 +84,10 @@ extension MovieDetailController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width
-        return .init(width: width, height: 200)
+        
+        let height = movie.overview.height(withConstrainedWidth: width-2*14, font: .boldSystemFont(ofSize: 16)) + 20 + 12 + 8 + 14
+        
+        return .init(width: width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -80,6 +95,5 @@ extension MovieDetailController: UICollectionViewDelegateFlowLayout {
         let height = 3*width/2
         return .init(width: width, height: height)
     }
-    
     
 }

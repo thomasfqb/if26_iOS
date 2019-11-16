@@ -7,11 +7,21 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MovieHeader: UICollectionReusableView {
+    
+    var movie: Movie? {
+        didSet {
+            guard let movie = movie else { return }
+            titleLabel.text = movie.originalTitle
+            let url = URL(string: "\(Service.imageBaseUrl)\(movie.posterPath ?? "")")
+            posterImageView.sd_setImage(with: url)
+        }
+    }
 
     let posterImageView = UIImageView(image: #imageLiteral(resourceName: "poster"))
-    let titleLabel = UILabel(text: "My movie title is large", font: .systemFont(ofSize: 48, weight: .heavy), numberOfLines: 2)
+    let titleLabel = UILabel(text: "", font: .systemFont(ofSize: 44, weight: .heavy), numberOfLines: 0)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,11 +29,13 @@ class MovieHeader: UICollectionReusableView {
         addSubview(posterImageView)
         posterImageView.fillSuperview()
         
+        
         setupGradientLayer()
         
         titleLabel.textColor = .white
+        titleLabel.sizeToFit()
         addSubview(titleLabel)
-        titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 14, bottom: 18, right: 14))
+        titleLabel.anchor(top: nil, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 14, bottom: 14, right: 14))
         
         
         
@@ -31,11 +43,9 @@ class MovieHeader: UICollectionReusableView {
     
     fileprivate func setupGradientLayer() {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [
-            UIColor.clear.cgColor,
-            UIColor.black.withAlphaComponent(0.6).cgColor,
-        ]
-        gradientLayer.locations = [0, 1]
+
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor, UIColor.black.cgColor]
+        gradientLayer.locations = [0, 0.9, 1]
         
         let gradientContainerView = UIView()
         addSubview(gradientContainerView)

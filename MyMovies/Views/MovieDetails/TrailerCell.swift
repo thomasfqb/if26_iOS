@@ -6,4 +6,17 @@
 //  Copyright © 2019 Thomas Fauquemberg. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class TrailerCell: UICollectionViewCell {
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}

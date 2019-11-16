@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+
+struct Video: Decodable {
+    
+    let id: String
+    let key: String
+    
+}
