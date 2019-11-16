@@ -7,6 +7,7 @@ target 'MyMovies' do
 
   # Pods for MyMovies
   pod 'SDWebImage'
+  pod 'SQLite.swift'
 
   target 'MyMoviesTests' do
     inherit! :search_paths

@@ -20,7 +20,7 @@ class MovieHeader: UICollectionReusableView {
         }
     }
 
-    let posterImageView = UIImageView(image: #imageLiteral(resourceName: "poster"))
+    let posterImageView = UIImageView()
     let titleLabel = UILabel(text: "", font: .systemFont(ofSize: 44, weight: .heavy), numberOfLines: 0)
     
     override init(frame: CGRect) {

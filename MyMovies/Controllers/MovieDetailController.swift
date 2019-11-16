@@ -39,12 +39,34 @@ class MovieDetailController: UICollectionViewController {
         
         navigationController?.navigationBar.tintColor = .white
         
-        let favoriteButton = UIBarButtonItem(image: #imageLiteral(resourceName: "like"), style: .plain, target: self, action: #selector(handleUpdateLike))
+        let isFavorite = Database.shared.movieIsFavorite(movie)
+        let favoriteButton = UIBarButtonItem(image: isFavorite ? #imageLiteral(resourceName: "favorite_filled") : #imageLiteral(resourceName: "favorite"), style: .plain, target: self, action: #selector(handleUpdateLike))
         navigationItem.rightBarButtonItem = favoriteButton
     }
     
     @objc fileprivate func handleUpdateLike() {
-        
+        let isFavorite = Database.shared.movieIsFavorite(movie)
+        if isFavorite {
+            Database.shared.removeMovieFromFavorites(movie) { (success, error) in
+                if let error = error {
+                    print("Failed to remove from favorites", error)
+                    return
+                }
+                if success {
+                    self.navigationItem.rightBarButtonItem?.image = #imageLiteral(resourceName: "favorite")
+                }
+            }
+        } else {
+            Database.shared.addMovieToFavorites(movie) { (success, error) in
+                if let error = error {
+                    print("Failed to add to favorites", error)
+                    return
+                }
+                if success {
+                    self.navigationItem.rightBarButtonItem?.image = #imageLiteral(resourceName: "favorite_filled")
+                }
+            }
+        }
     }
     
     //MARK:- Collection View

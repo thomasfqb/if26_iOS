@@ -14,18 +14,17 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         viewControllers = [
-            templateNavController(title: "Récents", unselectedImage: #imageLiteral(resourceName: "like"), selectedImage: #imageLiteral(resourceName: "like"), rootViewController: RecentMoviesController()),
-            templateNavController(title: "Favoris", unselectedImage: #imageLiteral(resourceName: "like"), selectedImage: #imageLiteral(resourceName: "like"), rootViewController: FavoritesMoviesController()),
-            templateNavController(title: "Recherche", unselectedImage: #imageLiteral(resourceName: "like"), selectedImage: #imageLiteral(resourceName: "like"), rootViewController: MovieSearchController())
+            templateNavController(title: "Récents", image: #imageLiteral(resourceName: "list"), rootViewController: RecentMoviesController()),
+            templateNavController(title: "Favoris", image: #imageLiteral(resourceName: "favorite"), rootViewController: FavoritesMoviesController()),
+            templateNavController(title: "Recherche", image: #imageLiteral(resourceName: "search"), rootViewController: MovieSearchController())
         ]
     }
     
     
-    fileprivate func templateNavController(title: String, unselectedImage: UIImage, selectedImage: UIImage, rootViewController: UIViewController = UIViewController()) -> UINavigationController {
+    fileprivate func templateNavController(title: String, image: UIImage, rootViewController: UIViewController = UIViewController()) -> UINavigationController {
         let viewController = rootViewController
         let navController = UINavigationController(rootViewController: viewController)
-        navController.tabBarItem.image = unselectedImage
-        navController.tabBarItem.selectedImage = selectedImage
+        navController.tabBarItem.image = image
         viewController.title = title
         return navController
     }

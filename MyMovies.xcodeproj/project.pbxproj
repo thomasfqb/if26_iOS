@@ -37,6 +37,7 @@
 		A14E6ED723782F0E00CC81A1 /* MyMoviesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E6ED623782F0E00CC81A1 /* MyMoviesUITests.swift */; };
 		A14E6EE52378301500CC81A1 /* RecentMoviesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E6EE42378301500CC81A1 /* RecentMoviesController.swift */; };
 		A14E6EE82378325900CC81A1 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14E6EE72378325900CC81A1 /* MovieCell.swift */; };
+		A17BECC923806D9D00925429 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17BECC823806D9D00925429 /* Database.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		A14E6ED823782F0E00CC81A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A14E6EE42378301500CC81A1 /* RecentMoviesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentMoviesController.swift; sourceTree = "<group>"; };
 		A14E6EE72378325900CC81A1 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
+		A17BECC823806D9D00925429 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		B2F6C8B90D7881A7F1CFB3DC /* Pods-MyMoviesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMoviesTests.debug.xcconfig"; path = "Target Support Files/Pods-MyMoviesTests/Pods-MyMoviesTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D9628DA4AED0B9B05862F07E /* Pods_MyMovies_MyMoviesUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyMovies_MyMoviesUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB87771051E5AA0C6293D66 /* Pods_MyMoviesTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyMoviesTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				A14174962378560900ED5039 /* Service.swift */,
+				A17BECC823806D9D00925429 /* Database.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				A14174972378560900ED5039 /* Service.swift in Sources */,
 				A14E6EB523782F0900CC81A1 /* AppDelegate.swift in Sources */,
 				A12E5F0E23783477002FCA51 /* UIView+Layout.swift in Sources */,
+				A17BECC923806D9D00925429 /* Database.swift in Sources */,
 				A1417492237851A800ED5039 /* OverviewCell.swift in Sources */,
 				A14174992378578500ED5039 /* Movie.swift in Sources */,
 				A102216E2378384D0092E6D8 /* UIView+CornerRadius.swift in Sources */,
@@ -654,7 +658,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -708,7 +712,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

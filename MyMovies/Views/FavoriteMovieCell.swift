@@ -19,7 +19,7 @@ class FavoriteMovieCell: BaseCell {
         }
     }
     
-    let posterImageView = UIImageView(image: #imageLiteral(resourceName: "poster"))
+    let posterImageView = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)

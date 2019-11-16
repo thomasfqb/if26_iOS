@@ -13,12 +13,29 @@ class FavoritesMoviesController: BaseMovieController {
     let cellId = "cellId"
     let spacing: CGFloat = 12
     
-    var result: Result?
+    var movies = [Movie]() {
+        didSet {
+            emptyCollectionLabel.alpha = movies.count > 0 ? 0 : 1
+        }
+    }
+    
+    let emptyCollectionLabel = UILabel(text: "😕\nPas encore de films ajoutés aux favoris...", font: .boldSystemFont(ofSize: 22), numberOfLines: 0, textColor: .lightGray)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
-        fetchUpComingMovies()
+        setupLayout()
+        
+    }
+    
+    fileprivate func setupLayout() {
+        emptyCollectionLabel.textAlignment = .center
+        view.addSubview(emptyCollectionLabel)
+        emptyCollectionLabel.centerInSuperview(size: .init(width: view.frame.width - 44, height: 0))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetchFavoritesMovies()
     }
     
     //MARK:- Collection View
@@ -30,18 +47,17 @@ class FavoritesMoviesController: BaseMovieController {
        }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return result?.movies.count ?? 0
+        return movies.count
     }
         
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! FavoriteMovieCell
-        cell.movie = result?.movies[indexPath.row]
+        cell.movie = movies[indexPath.row]
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let result = result else { return }
-        let movie = result.movies[indexPath.item]
+        let movie = movies[indexPath.item]
         let movieController = MovieDetailController(for: movie)
         if let tabBarControlller = tabBarController as? MainTabBarController {
             tabBarControlller.setTabBarVisible(visible: false, animated: true)
@@ -49,17 +65,22 @@ class FavoritesMoviesController: BaseMovieController {
         navigationController?.pushViewController(movieController, animated: true)
     }
         
-    fileprivate func fetchUpComingMovies() {
-        Service.shared.fetchUpcomingMovies { (result, error) in
+    fileprivate func fetchFavoritesMovies() {
+        //Fix for last element staying in CV
+        self.movies.removeAll()
+        self.collectionView.reloadData()
+        
+        Database.shared.getFavoritesMovies { (movies, error) in
             if let error = error {
-                print("Failed to fetch upcoming movies", error)
+                print("Failed to fecth favorites", error)
                 return
             }
-            guard let result = result else { return }
-            self.result = result
+            guard let movies = movies else { return }
+            self.movies = movies
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
+            
         }
     }
 }
