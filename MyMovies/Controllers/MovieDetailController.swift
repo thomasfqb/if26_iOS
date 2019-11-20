@@ -15,11 +15,12 @@ class MovieDetailController: UICollectionViewController {
     init(for movie: Movie) {
         self.movie = movie
         super.init(collectionViewLayout: StretchyHeaderLayout())
+        fetchVideos()
     }
     
     let headerId = "headerId"
     let overviewCellId = "overviewCellId"
-    let trailerCell = "trailerCell"
+    let trailerCellId = "trailerCellId"
     
         
     override func viewDidLoad() {
@@ -28,7 +29,22 @@ class MovieDetailController: UICollectionViewController {
         setupNavigationBar()
     }
     
-    //MARK:- Collection View
+    fileprivate func fetchVideos() {
+        Service.shared.fetchVideos(for: movie) { (result, error) in
+            if let error = error {
+                print("Failed to fetch videos for movie", error)
+                return
+            }
+            
+            guard let result = result else { return }
+            self.movie.videos = result.results
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    //MARK:- Nav bar
     
     fileprivate func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = false
@@ -77,6 +93,7 @@ class MovieDetailController: UICollectionViewController {
         collectionView.register(MovieHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         
         collectionView.register(OverviewCell.self, forCellWithReuseIdentifier: overviewCellId)
+        collectionView.register(TrailerCell.self, forCellWithReuseIdentifier: trailerCellId)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -86,13 +103,21 @@ class MovieDetailController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: overviewCellId, for: indexPath) as! OverviewCell
-        cell.movie = movie
-        return cell
+        switch indexPath.row {
+        case 1:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: trailerCellId, for: indexPath) as! TrailerCell
+            cell.videoId = movie.videos![0].key
+            return cell
+        default:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: overviewCellId, for: indexPath) as! OverviewCell
+            cell.movie = movie
+            return cell
+        }
+       
     }
         
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return movie.videos != nil ? 2 : 1
     }
     
     required init?(coder: NSCoder) {
@@ -105,9 +130,16 @@ class MovieDetailController: UICollectionViewController {
 extension MovieDetailController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = view.frame.width
+        let width: CGFloat = view.frame.width - 28
+        var height: CGFloat = 0
         
-        let height = movie.overview.height(withConstrainedWidth: width-2*14, font: .boldSystemFont(ofSize: 16)) + 20 + 12 + 8 + 14
+        switch indexPath.row {
+        case 1:
+            height = width * 0.56
+        default:
+            height = movie.overview.height(withConstrainedWidth: width-2*14, font: .boldSystemFont(ofSize: 16)) + 54
+        }
+        
         
         return .init(width: width, height: height)
     }

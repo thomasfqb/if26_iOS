@@ -27,6 +27,7 @@ class OverviewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .black
+        backgroundView?.backgroundColor = .red
         overviewLabel.textColor = .gray
         overviewLabel.textAlignment = .justified
         
@@ -45,7 +46,7 @@ class OverviewCell: UICollectionViewCell {
         ], spacing: 12)
         
         addSubview(mainStackView)
-        mainStackView.fillSuperview(padding: .init(top: 8, left: 14, bottom: 14, right: 14))
+        mainStackView.fillSuperview(padding: .init(top: 0, left: 0, bottom: 0, right: 0))
     }
     
     

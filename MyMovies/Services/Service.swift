@@ -31,6 +31,11 @@ class Service {
         fetchGenericJSONData(urlString: urlString, completion: completion)
     }
     
+    func fetchVideos(for movie: Movie, completion: @escaping (VideosResult?, Error?) -> ()) {
+        let urlString = "\(apiPath)/movie/\(movie.id)/videos?api_key=\(apiKey)"
+        fetchGenericJSONData(urlString: urlString, completion: completion)
+    }
+    
     func fetchGenericJSONData<T: Decodable>(urlString: String, completion: @escaping (T?, Error?) -> ()) {
         
         guard let url = URL(string: urlString) else { return }

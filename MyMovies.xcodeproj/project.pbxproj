@@ -13,6 +13,7 @@
 		A102216E2378384D0092E6D8 /* UIView+CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = A102216D2378384D0092E6D8 /* UIView+CornerRadius.swift */; };
 		A102217023783C050092E6D8 /* MovieDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A102216F23783C050092E6D8 /* MovieDetailController.swift */; };
 		A102217223783C670092E6D8 /* StretchyHeaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A102217123783C670092E6D8 /* StretchyHeaderLayout.swift */; };
+		A11B5842238434D900725544 /* VideosResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11B5841238434D900725544 /* VideosResult.swift */; };
 		A11D8A742378370600F17A6B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11D8A732378370600F17A6B /* Extensions.swift */; };
 		A12E5F0E23783477002FCA51 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12E5F0D23783477002FCA51 /* UIView+Layout.swift */; };
 		A12E5F1023783590002FCA51 /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12E5F0F23783590002FCA51 /* VerticalStackView.swift */; };
@@ -66,6 +67,7 @@
 		A102216D2378384D0092E6D8 /* UIView+CornerRadius.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+CornerRadius.swift"; sourceTree = "<group>"; };
 		A102216F23783C050092E6D8 /* MovieDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailController.swift; sourceTree = "<group>"; };
 		A102217123783C670092E6D8 /* StretchyHeaderLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StretchyHeaderLayout.swift; sourceTree = "<group>"; };
+		A11B5841238434D900725544 /* VideosResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideosResult.swift; sourceTree = "<group>"; };
 		A11D8A732378370600F17A6B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A12E5F0D23783477002FCA51 /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 		A12E5F0F23783590002FCA51 /* VerticalStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			children = (
 				A14174982378578500ED5039 /* Movie.swift */,
 				A141749A23786CA300ED5039 /* Result.swift */,
+				A11B5841238434D900725544 /* VideosResult.swift */,
 				A141749D2378765600ED5039 /* Video.swift */,
 			);
 			path = Models;
@@ -550,6 +553,7 @@
 				A102216E2378384D0092E6D8 /* UIView+CornerRadius.swift in Sources */,
 				A14174A42378CB8C00ED5039 /* BaseCell.swift in Sources */,
 				A141748E2378409E00ED5039 /* MovieHeader.swift in Sources */,
+				A11B5842238434D900725544 /* VideosResult.swift in Sources */,
 				A1417494237854B100ED5039 /* TrailerCell.swift in Sources */,
 				A11D8A742378370600F17A6B /* Extensions.swift in Sources */,
 				A14E6EB723782F0900CC81A1 /* SceneDelegate.swift in Sources */,
