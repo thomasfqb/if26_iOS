@@ -106,7 +106,7 @@ class MovieDetailController: UICollectionViewController {
         switch indexPath.row {
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: trailerCellId, for: indexPath) as! TrailerCell
-            cell.videoId = movie.videos![0].key
+            cell.videoId = movie.videos?[0].key
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: overviewCellId, for: indexPath) as! OverviewCell
